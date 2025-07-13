@@ -1,33 +1,7 @@
-# build output
+# === 前端 Node/Astro ===
 dist/
-# generated types
 .astro/
-
-# dependencies
 node_modules/
-
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
-
-# jetbrains setting folder
-.vscode/
-
-yarn.lock
-
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -35,5 +9,33 @@ yarn.lock
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+yarn.lock
 
-node_modules/
+# === PHP/Lumen 后端 ===
+backend/vendor/
+backend/.env
+backend/storage/*.key
+backend/storage/logs/*.log
+backend/storage/framework/cache/*
+backend/storage/framework/sessions/*
+backend/storage/framework/views/*
+composer.lock
+
+# === Docker ===
+docker/*.log
+docker/db/*.sql
+*.pid
+*.sock
+
+# === IDE / 系统垃圾文件 ===
+.DS_Store
+.idea/
+.vscode/
+
+# === 根目录 .env 配置（如果将来有的话） ===
+.env
+.env.*
