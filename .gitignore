@@ -39,4 +39,3 @@ docker/db/*.sql
 # === 根目录 .env 配置（如果将来有的话） ===
 .env
 .env.*
-!.env.docker
