@@ -9,4 +9,5 @@ RUN yarn install && yarn build
 
 EXPOSE 4321
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "dev", "--host"]
+
