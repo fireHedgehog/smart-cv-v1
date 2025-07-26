@@ -1,0 +1,25 @@
+---
+import { apiRequest } from '../utils/request.js';
+
+let result = '';
+
+if (Astro.request.method === 'POST') {
+  const body = await Astro.request.formData();
+  const text = body.get('text');
+  const res = await apiRequest('post', 'v1/CV/new', { text });
+  result = JSON.stringify(res.data, null, 2);
+}
+---
+
+<html lang="zh">
+  <head><title>API 签名测试</title></head>
+  <body>
+    <h1>API 测试页面</h1>
+    <form method="POST">
+      <input type="text" name="text" placeholder="输入简历文本" />
+      <button type="submit">发送</button>
+    </form>
+
+    {result && <pre>{result}</pre>}
+  </body>
+</html>

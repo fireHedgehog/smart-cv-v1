@@ -79,6 +79,10 @@ $app->configure('app');
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
+$app->routeMiddleware([
+    'verify.sig' => App\Http\Middleware\VerifySignature::class,
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
