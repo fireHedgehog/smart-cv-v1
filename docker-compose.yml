@@ -25,6 +25,8 @@ services:
       - ./backend/resources:/var/www/resources
       # 👇 不挂载 storage，避免权限冲突
       - ./backend/bootstrap:/var/www/bootstrap
+      # ✅ 挂载宿主机的 keys 文件夹到容器 storage/keys
+      - /opt/smartcv/keys:/var/www/storage/keys:ro
     ports:
       - "8000:8000"
     depends_on:

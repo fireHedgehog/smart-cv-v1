@@ -24,3 +24,13 @@ If you discover a security vulnerability within Lumen, please send an e-mail to 
 ## License
 
 The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[宿主机 = WSL Ubuntu]
+├── smart-cv-v1/
+│    ├── backend/
+│    │    ├── storage/
+│    │    │    ├── keys/   ← 这里放 private.pem
+│    │    └── app/
+│    └── frontend/
+└── Docker Engine
+├── backend 容器 (/var/www/)
+└── frontend 容器 (/app/)
