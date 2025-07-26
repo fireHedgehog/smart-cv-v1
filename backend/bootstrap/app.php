@@ -79,9 +79,11 @@ $app->configure('app');
 //     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
-$app->routeMiddleware([
-    'verify.sig' => App\Http\Middleware\VerifySignature::class,
+$app->middleware([
+    App\Http\Middleware\CorsMiddleware::class,
+    App\Http\Middleware\VerifySignature::class,
 ]);
+
 
 /*
 |--------------------------------------------------------------------------

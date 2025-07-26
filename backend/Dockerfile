@@ -1,20 +1,28 @@
-# backend/Dockerfile
 FROM php:8.3-fpm
 
-# 安装扩展和 Composer
 RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip mariadb-client \
-    && docker-php-ext-install pdo_mysql
+    nginx supervisor libzip-dev zip unzip mariadb-client \
+    && docker-php-ext-install pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
 
-# 安装 Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+# 👉 用 ARG 控制 UID/GID，默认 33（生产用）
+ARG WWW_DATA_UID=33
+ARG WWW_DATA_GID=33
+RUN usermod -u $WWW_DATA_UID www-data && groupmod -g $WWW_DATA_GID www-data
+
 COPY . .
 
-RUN composer install
+RUN composer install --no-dev --optimize-autoloader \
+    && mkdir -p storage/logs \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R 775 storage bootstrap/cache
 
-EXPOSE 9000
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+EXPOSE 8000
+CMD ["/usr/bin/supervisord"]

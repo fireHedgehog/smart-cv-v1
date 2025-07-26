@@ -16,18 +16,21 @@ services:
   backend:
     build:
       context: ./backend
+      args:
+        WWW_DATA_UID: 1000   # 本地开发 UID=1000
+        WWW_DATA_GID: 1000
     volumes:
-      - ./backend:/var/www
+      - ./backend/app:/var/www/app
+      - ./backend/routes:/var/www/routes
+      - ./backend/resources:/var/www/resources
+      # 👇 不挂载 storage，避免权限冲突
+      - ./backend/bootstrap:/var/www/bootstrap
     ports:
       - "8000:8000"
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=smartcv
-      - DB_USERNAME=root
-      - DB_PASSWORD=rootpassword
     depends_on:
       - db
+    command: >
+      sh -c "php-fpm & nginx -g 'daemon off;'"
 
   db:
     image: mariadb

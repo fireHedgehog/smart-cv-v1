@@ -26,3 +26,7 @@ $router->get('/db-test', function () {
         return '❌ DB connection failed: ' . $e->getMessage();
     }
 });
+
+$router->post('v1/test-middleware', [
+    'uses' => 'CVController@create'
+]);
